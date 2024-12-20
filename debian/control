@@ -1,15 +1,147 @@
-Source: template-repository
-Section: unknown
+Source: gnome-bluetooth3
+Section: gnome
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
+Uploaders: Jeremy Bícha <jbicha@ubuntu.com>, Laurent Bigonville <bigon@debian.org>, Sebastien Bacher <seb128@debian.org>
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-gir,
+               dh-sequence-gnome,
+               gir1.2-girepository-2.0 <!nocheck>,
+               libadwaita-1-dev (>= 1.6~beta),
+               libgsound-dev,
+               libgirepository1.0-dev (>= 0.9.5),
+               libglib2.0-dev (>= 2.44),
+               libgtk-4-dev (>= 4.15.2),
+               libnotify-dev,
+               libudev-dev,
+               libupower-glib-dev (>= 0.99.14),
+               libxml2-utils,
+               meson (>= 0.49.0),
+               python3-dbus <!nocheck>,
+               python3-dbusmock (>= 0.26.1) <!nocheck>,
+               python3-gi <!nocheck>,
+               xauth <!nocheck>,
+               xvfb <!nocheck>,
+Build-Depends-Indep: gtk-doc-tools <!nodoc>,
+                     libglib2.0-doc <!nodoc>,
+                     libgtk-4-doc <!nodoc>,
+Rules-Requires-Root: no
+Standards-Version: 4.7.0
+Vcs-Browser: https://salsa.debian.org/gnome-team/gnome-bluetooth3
+Vcs-Git: https://salsa.debian.org/gnome-team/gnome-bluetooth3.git
+Homepage: https://wiki.gnome.org/Projects/GnomeBluetooth
 
-Package: template-repository
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Package: libgnome-bluetooth-3.0-13
+Section: libs
+Architecture: linux-any
+Multi-Arch: same
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         gnome-bluetooth-3-common (>= ${source:Version}),
+Description: GNOME Bluetooth 3 support library
+ This package contains tools for managing and manipulating Bluetooth
+ devices using the GNOME desktop.
+ .
+ The libraries included provide support to gnome-bluetooth.
+
+Package: libgnome-bluetooth-ui-3.0-13
+Section: libs
+Architecture: linux-any
+Multi-Arch: same
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: GNOME Bluetooth 3 UI support library
+ This package contains tools for managing and manipulating Bluetooth
+ devices using the GNOME desktop.
+ .
+ The libraries included provide support to gnome-bluetooth.
+
+Package: libgnome-bluetooth-3.0-dev
+Section: libdevel
+Architecture: linux-any
+Multi-Arch: same
+Depends: gir1.2-gnomebluetooth-3.0 (= ${binary:Version}),
+         libgnome-bluetooth-3.0-13 (= ${binary:Version}),
+         libglib2.0-dev (>= 2.44),
+         ${gir:Depends},
+         ${misc:Depends}
+Provides: ${gir:Provides},
+Suggests: libgnome-bluetooth-doc
+Description: GNOME Bluetooth 3 library - development files
+ This package contains tools for managing and manipulating Bluetooth
+ devices using the GNOME desktop.
+ .
+ The libraries included provide support to gnome-bluetooth.
+ .
+ This package contains the development files.
+
+Package: libgnome-bluetooth-ui-3.0-dev
+Section: libdevel
+Architecture: linux-any
+Multi-Arch: same
+Depends: libgnome-bluetooth-ui-3.0-13 (= ${binary:Version}),
+         libadwaita-1-dev (>= 1.6~beta),
+         libglib2.0-dev (>= 2.44),
+         libgtk-4-dev (>= 4.15.2),
+         ${misc:Depends}
+Breaks: libgnome-bluetooth-3.0-dev (<< 42.0-2~)
+Replaces: libgnome-bluetooth-3.0-dev (<< 42.0-2~)
+Description: GNOME Bluetooth UI 3 library - development files
+ This package contains tools for managing and manipulating Bluetooth
+ devices using the GNOME desktop.
+ .
+ The libraries included provide support to gnome-bluetooth.
+ .
+ This package contains the development files.
+
+Package: gir1.2-gnomebluetooth-3.0
+Section: introspection
+Architecture: linux-any
+Multi-Arch: same
+Depends: ${gir:Depends},
+         ${misc:Depends},
+         ${shlibs:Depends}
+Breaks: gnome-shell (<< 42~alpha)
+Description: Introspection data for GnomeBluetooth
+ This package contains tools for managing and manipulating Bluetooth
+ devices using the GNOME desktop.
+ .
+ The libraries included provide support to gnome-bluetooth.
+ .
+ This package contains the introspection data for GnomeBluetooth
+
+Package: libgnome-bluetooth-doc
+Build-Profiles: <!nodoc>
+Section: doc
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: GNOME Bluetooth 3 support library - reference docs
+ This package contains tools for managing and manipulating Bluetooth
+ devices using the GNOME desktop.
+ .
+ This package contains the API reference.
+
+Package: gnome-bluetooth-3-common
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: GNOME Bluetooth 3 common files
+ This package contains common files for the GNOME Bluetooth tools
+ and libraries.
+
+Package: gnome-bluetooth-sendto
+Architecture: linux-any
+Depends: bluez (>= 5.5),
+         bluez-obexd,
+         udev (>= 154),
+         ${gir:Depends},
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: gnome-control-center | budgie-control-center | unity-control-center | ayatana-indicator-bluetooth,
+            gvfs-backends
+Breaks: gnome-bluetooth (<< 42~)
+Replaces: gnome-bluetooth (<< 42~)
+Description: GNOME Bluetooth Send To app
+ The GNOME Bluetooth Send To app is an easy way to send files
+ to a Bluetooth device.

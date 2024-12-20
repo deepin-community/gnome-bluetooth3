@@ -1,0 +1,3 @@
+usr/include/*/bluetooth-settings-widget.h
+usr/lib/*/libgnome-bluetooth-ui-3.0.so
+usr/lib/*/pkgconfig/gnome-bluetooth-ui-3.0.pc
