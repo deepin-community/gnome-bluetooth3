@@ -1,0 +1,3 @@
+Tests: gir1.2-gnomebluetooth-3.0
+Depends: gir1.2-gnomebluetooth-3.0, python3-gi
+Restrictions: superficial
